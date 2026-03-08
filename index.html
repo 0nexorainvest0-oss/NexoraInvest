@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#667eea">
+    <title>Nexora Invest | المركز الضريبي المتقدم</title>
+    
+    <!-- الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* === المتغيرات الأساسية === */
+        :root {
+            --primary: #FCD535;
+            --primary-dark: #E5C02A;
+            --bg-body: #F5F7FA;
+            --bg-card: #FFFFFF;
+            --text-main: #1E2329;
+            --text-sec: #707A8A;
+            --danger: #F6465D;
+            --success: #0ECB81;
+            --info: #2196F3;
+            --warning: #FFA000;
+            --purple: #667eea;
+            --purple-dark: #764ba2;
+            --border: #EAECEF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.06);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --radius: 16px;
+            --header-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0B0E11;
+            --bg-card: #1E2329;
+            --text-main: #EAECEF;
+            --text-sec: #848E9C;
+            --border: #2B3139;
+            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.5);
+        }
+
+        /* === الإعدادات العامة === */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main);             padding-bottom: 80px; 
+            overflow-x: hidden; 
+            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* === شريط التمرير === */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-sec); }
+
+        /* === الهيدر الاحترافي === */
+        .tax-header {
+            background: var(--header-grad);
+            padding: 30px 20px 50px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        .tax-header::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+        
+        .tax-header-content { position: relative; z-index: 2; text-align: center; }
+        .tax-header h1 { font-size: 24px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 12px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .tax-header p { font-size: 14px; opacity: 0.95; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+        
+        .tax-badge { 
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.2); padding: 8px 16px;
+            border-radius: 30px; font-size: 12px; font-weight: 700;
+            margin-top: 15px; backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* === شبكة الملخص === */
+        .summary-grid {
+            display: grid;            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 0 20px;
+            margin-top: -35px;
+            position: relative;
+            z-index: 3;
+        }
+        .summary-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .summary-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary); opacity: 0; transition: opacity 0.3s;
+        }
+        .summary-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        .summary-card:hover::before { opacity: 1; }
+        .summary-card.highlight { border: 2px solid var(--primary); background: linear-gradient(135deg, var(--bg-card), rgba(252,213,53,0.08)); }
+        
+        .summary-icon {
+            width: 50px; height: 50px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .summary-icon.green { background: rgba(14,203,129,0.15); color: var(--success); }
+        .summary-icon.red { background: rgba(246,70,93,0.15); color: var(--danger); }
+        .summary-icon.blue { background: rgba(33,149,243,0.15); color: var(--info); }
+        .summary-icon.purple { background: rgba(102,126,234,0.15); color: var(--purple); }
+        
+        .summary-label { font-size: 12px; color: var(--text-sec); margin-bottom: 6px; font-weight: 600; }
+        .summary-value { font-size: 20px; font-weight: 900; direction: ltr; letter-spacing: -0.5px; }
+        .summary-sub { font-size: 11px; color: var(--text-sec); margin-top: 5px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+
+        /* === شريط التقدم === */
+        .tax-progress-section {
+            background: var(--bg-card);
+            margin: 20px;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);            border: 1px solid var(--border);
+        }
+        .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .progress-title { font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+        .progress-percent { font-weight: 900; color: var(--primary); font-size: 14px; background: rgba(252,213,53,0.1); padding: 4px 10px; border-radius: 8px; }
+        
+        .progress-bar {
+            width: 100%; height: 12px;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--primary));
+            border-radius: 10px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .progress-fill::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+        .progress-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border);
+        }
+        .progress-detail { text-align: center; }
+        .progress-detail-value { font-weight: 800; font-size: 15px; direction: ltr; color: var(--text-main); }
+        .progress-detail-label { font-size: 11px; color: var(--text-sec); margin-top: 4px; }
+
+        /* === الفلاتر === */
+        .tax-filters {
+            background: var(--bg-card);
+            margin: 0 20px 20px;
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .filter-row { display: flex; gap: 12px; margin-bottom: 15px; flex-wrap: wrap; }        .filter-select {
+            flex: 1; min-width: 140px;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            transition: 0.2s;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23707A8A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: left 10px center;
+            background-size: 16px;
+            padding-left: 35px;
+        }
+        .filter-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(252,213,53,0.2); }
+        
+        .filter-btn {
+            padding: 12px 24px;
+            background: var(--primary);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(252,213,53,0.3);
+        }
+        .filter-btn:active { transform: scale(0.96); }
+        .filter-btn.secondary {
+            background: var(--bg-body);
+            color: var(--text-main);
+            box-shadow: none;
+            border: 1px solid var(--border);
+        }
+
+        .filter-tags { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .filter-tags::-webkit-scrollbar { display: none; }
+        .filter-tag {
+            padding: 8px 16px;
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 12px;            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .filter-tag.active {
+            background: var(--text-main);
+            color: var(--bg-card);
+            border-color: var(--text-main);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* === الرسوم البيانية === */
+        .chart-section {
+            background: var(--bg-card);
+            margin: 0 20px 20px;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .chart-title { font-weight: 800; font-size: 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: var(--text-main); }
+        
+        .pie-chart-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            padding: 10px;
+            flex-wrap: wrap;
+        }
+        .pie-chart {
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(var(--success) 0% 45%, var(--warning) 45% 75%, var(--danger) 75% 90%, var(--info) 90% 100%);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: background 0.5s ease;
+        }
+        .pie-chart::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px; height: 80px;
+            background: var(--bg-card);
+            border-radius: 50%;
+            border: 4px solid var(--bg-body);        }
+        .pie-legend { display: flex; flex-direction: column; gap: 12px; min-width: 150px; }
+        .legend-item { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; color: var(--text-sec); }
+        .legend-color { width: 14px; height: 14px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .legend-color.c1 { background: var(--success); }
+        .legend-color.c2 { background: var(--warning); }
+        .legend-color.c3 { background: var(--danger); }
+        .legend-color.c4 { background: var(--info); }
+
+        /* === جدول المعاملات === */
+        .transactions-section {
+            background: var(--bg-card);
+            margin: 0 20px 20px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .section-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: rgba(252,213,53,0.03);
+        }
+        .section-title { font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 10px; }
+        .tx-count-badge {
+            background: var(--primary); color: #000;
+            padding: 4px 10px; border-radius: 12px;
+            font-size: 11px; font-weight: 900;
+        }
+        .section-actions { display: flex; gap: 10px; }
+        .action-btn {
+            padding: 10px 16px;
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 6px;
+            transition: 0.2s;
+            color: var(--text-sec);
+        }
+        .action-btn:hover { background: var(--border); color: var(--text-main); }
+        .action-btn.primary { background: var(--text-main); color: var(--bg-card); border: none; }
+        .action-btn.primary:hover { opacity: 0.9; }
+        .transactions-list { max-height: 500px; overflow-y: auto; }
+        .transaction-item {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 15px;
+            align-items: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+        .transaction-item:last-child { border-bottom: none; }
+        .transaction-item:hover { background: rgba(252,213,53,0.05); }
+        .transaction-item.expanded { background: rgba(252,213,53,0.1); }
+        .transaction-item.expanded::after {
+            content: ''; position: absolute; right: 0; top: 0; bottom: 0;
+            width: 4px; background: var(--primary);
+        }
+
+        .tx-main { display: flex; align-items: center; gap: 15px; }
+        .tx-icon {
+            width: 45px; height: 45px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .tx-icon.buy { background: rgba(14,203,129,0.15); color: var(--success); }
+        .tx-icon.sell { background: rgba(246,70,93,0.15); color: var(--danger); }
+        .tx-icon.income { background: rgba(252,213,53,0.15); color: #B8860B; }
+        .tx-icon.transfer { background: rgba(33,149,243,0.15); color: var(--info); }
+        
+        .tx-info h4 { font-size: 15px; font-weight: 800; margin-bottom: 4px; color: var(--text-main); }
+        .tx-info p { font-size: 12px; color: var(--text-sec); }
+        .tx-date { font-size: 11px; color: var(--text-sec); margin-top: 6px; display: flex; align-items: center; gap: 5px; }
+        .tx-date i { font-size: 10px; }
+
+        .tx-amount { text-align: left; direction: ltr; min-width: 100px; }
+        .tx-amount-value { font-weight: 800; font-size: 15px; display: block; letter-spacing: -0.5px; }
+        .tx-amount-sub { font-size: 11px; color: var(--text-sec); display: block; margin-top: 4px; font-weight: 600; }
+        
+        .tx-tax-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 800;            margin-top: 6px;
+            text-transform: uppercase;
+        }
+        .tax-badge-taxable { background: rgba(246,70,93,0.15); color: var(--danger); }
+        .tax-badge-exempt { background: rgba(14,203,129,0.15); color: var(--success); }
+        .tax-badge-projected { background: rgba(255,160,0,0.15); color: var(--warning); }
+
+        .tx-details {
+            grid-column: 1 / -1;
+            padding: 20px;
+            background: var(--bg-body);
+            border-radius: 12px;
+            margin-top: 15px;
+            display: none;
+            font-size: 13px;
+            border: 1px solid var(--border);
+            animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .transaction-item.expanded .tx-details { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .tx-detail-row { display: flex; flex-direction: column; gap: 4px; }
+        .tx-detail-label { font-size: 11px; color: var(--text-sec); font-weight: 600; text-transform: uppercase; }
+        .tx-detail-value { font-weight: 700; direction: ltr; color: var(--text-main); font-family: 'Courier New', monospace; }
+        
+        @media (max-width: 600px) {
+            .transaction-item.expanded .tx-details { grid-template-columns: 1fr; }
+            .summary-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .progress-details { grid-template-columns: 1fr; }
+            .filter-row { flex-direction: column; }
+            .filter-select { width: 100%; }
+            .transaction-item { grid-template-columns: 1fr; }
+            .tx-amount { text-align: right; direction: rtl; margin-top: 10px; }
+            .pie-chart-container { flex-direction: column; }
+        }
+
+        /* === التصدير === */
+        .export-section {
+            background: var(--bg-card);
+            margin: 0 20px 20px;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .export-title { font-weight: 800; font-size: 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .export-desc { font-size: 13px; color: var(--text-sec); margin-bottom: 20px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .export-formats { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .export-btn {            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 8px;
+            transition: 0.2s;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .export-btn.pdf { background: rgba(246,70,93,0.15); color: var(--danger); }
+        .export-btn.excel { background: rgba(14,203,129,0.15); color: var(--success); }
+        .export-btn.csv { background: rgba(33,149,243,0.15); color: var(--info); }
+        .export-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+        .export-btn:active { transform: translateY(-1px); }
+
+        /* === القانوني === */
+        .legal-notice {
+            margin: 0 20px 30px;
+            padding: 20px;
+            background: rgba(252,213,53,0.08);
+            border-radius: var(--radius);
+            border-right: 5px solid var(--primary);
+            font-size: 12px;
+            color: var(--text-sec);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            line-height: 1.8;
+        }
+        .legal-notice i { color: var(--primary); font-size: 16px; margin-top: 2px; flex-shrink: 0; }
+
+        /* === التحميل === */
+        .loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+        .loading-overlay.active { display: flex; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .loading-box {
+            background: var(--bg-card);
+            padding: 30px 50px;
+            border-radius: 20px;
+            text-align: center;            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            min-width: 300px;
+        }
+        .loading-spinner {
+            width: 50px; height: 50px;
+            border: 5px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .loading-text { font-size: 15px; font-weight: 700; color: var(--text-main); }
+        .loading-sub { font-size: 12px; color: var(--text-sec); margin-top: 8px; }
+
+        /* === التوست === */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-card);
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            z-index: 2000;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-right: 5px solid var(--success);
+            min-width: 300px;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast.error { border-right-color: var(--danger); }
+        .toast.warning { border-right-color: var(--warning); }
+        .toast i { font-size: 18px; }
+
+        /* === زر العودة === */
+        .back-btn {
+            position: absolute; top: 20px; left: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none; color: white;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;            backdrop-filter: blur(5px);
+            transition: 0.2s;
+            z-index: 10;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+    <!-- زر العودة -->
+    <button class="back-btn" onclick="window.history.back()"><i class="fas fa-arrow-right"></i></button>
+
+    <!-- الهيدر -->
+    <header class="tax-header">
+        <div class="tax-header-content">
+            <h1><i class="fas fa-file-invoice-dollar"></i> المركز الضريبي المتقدم</h1>
+            <p>نظام ضريبي ذكي يتتبع أرباحك، يحسب التزاماتك تلقائياً، ويصدر تقارير معتمدة متوافقة مع المعايير الدولية</p>
+            <div class="tax-badge">
+                <i class="fas fa-shield-check"></i>
+                <span>محمي ومشفّر - متوافق مع GDPR</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- بطاقات الملخص -->
+    <div class="summary-grid">
+        <div class="summary-card highlight">
+            <div class="summary-icon purple"><i class="fas fa-coins"></i></div>
+            <div class="summary-label">إجمالي الأرباح الصافية</div>
+            <div class="summary-value" id="totalGains">$28,338.67</div>
+            <div class="summary-sub" id="yearSub">خلال 2024</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-icon red"><i class="fas fa-percent"></i></div>
+            <div class="summary-label">الضريبة المستحقة</div>
+            <div class="summary-value" id="taxDue">$4,250.80</div>
+            <div class="summary-sub" id="rateSub">نسبة 15%</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-icon green"><i class="fas fa-check-circle"></i></div>
+            <div class="summary-label">المدفوع حتى الآن</div>
+            <div class="summary-value" id="taxPaid">$3,100.00</div>
+            <div class="summary-sub"><i class="fas fa-calendar-check"></i> آخر دفعة: 15 مارس</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-icon blue"><i class="fas fa-wallet"></i></div>
+            <div class="summary-label">المتبقي للسداد</div>
+            <div class="summary-value" id="taxRemaining">$1,150.80</div>
+            <div class="summary-sub"><i class="fas fa-clock"></i> الموعد: 30 أبريل</div>
+        </div>    </div>
+
+    <!-- شريط التقدم -->
+    <div class="tax-progress-section">
+        <div class="progress-header">
+            <span class="progress-title"><i class="fas fa-chart-pie"></i> حالة الالتزام الضريبي</span>
+            <span class="progress-percent" id="progressPercent">73%</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 73%"></div>
+        </div>
+        <div class="progress-details">
+            <div class="progress-detail">
+                <div class="progress-detail-value" id="totalTransactions">142</div>
+                <div class="progress-detail-label">إجمالي المعاملات</div>
+            </div>
+            <div class="progress-detail">
+                <div class="progress-detail-value" id="taxableCount">89</div>
+                <div class="progress-detail-label">خاضعة للضريبة</div>
+            </div>
+            <div class="progress-detail">
+                <div class="progress-detail-value" id="exemptCount">53</div>
+                <div class="progress-detail-label">معفاة ضريبياً</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفلاتر -->
+    <div class="tax-filters">
+        <div class="filter-row">
+            <select class="filter-select" id="yearFilter" onchange="applyFilters()">
+                <option value="2024">📅 السنة المالية 2024</option>
+                <option value="2025">📅 السنة المالية 2025</option>
+                <option value="2026">🔮 التوقعات 2026</option>
+            </select>
+            <select class="filter-select" id="countryFilter" onchange="applyFilters()">
+                <option value="sa">🇸🇦 المملكة العربية السعودية (15%)</option>
+                <option value="ae">🇦🇪 الإمارات العربية المتحدة (0%)</option>
+                <option value="eg">🇪🇬 جمهورية مصر العربية (22.5%)</option>
+                <option value="us">🇺🇸 الولايات المتحدة الأمريكية (متغير)</option>
+                <option value="uk">🇬🇧 المملكة المتحدة (20%)</option>
+            </select>
+            <button class="filter-btn" onclick="applyFilters()">
+                <i class="fas fa-sync-alt"></i> تحديث البيانات
+            </button>
+        </div>
+        <div class="filter-tags">
+            <div class="filter-tag active" data-filter="all" onclick="filterByType('all', this)">الكل</div>
+            <div class="filter-tag" data-filter="buy" onclick="filterByType('buy', this)">📈 شراء</div>
+            <div class="filter-tag" data-filter="sell" onclick="filterByType('sell', this)">📉 بيع</div>            <div class="filter-tag" data-filter="income" onclick="filterByType('income', this)">💰 دخل</div>
+            <div class="filter-tag" data-filter="transfer" onclick="filterByType('transfer', this)">🔄 تحويل</div>
+        </div>
+    </div>
+
+    <!-- الرسم البياني -->
+    <div class="chart-section">
+        <div class="chart-title"><i class="fas fa-chart-pie"></i> توزيع مصادر الدخل الضريبي</div>
+        <div class="pie-chart-container">
+            <div class="pie-chart" id="pieChart"></div>
+            <div class="pie-legend">
+                <div class="legend-item"><div class="legend-color c1"></div><span>أرباح رأس المال (<span id="pieCapital">45</span>%)</span></div>
+                <div class="legend-item"><div class="legend-color c2"></div><span>دخل التعدين (<span id="pieMining">30</span>%)</span></div>
+                <div class="legend-item"><div class="legend-color c3"></div><span>مكافآت الإحالة (<span id="pieReferral">15</span>%)</span></div>
+                <div class="legend-item"><div class="legend-color c4"></div><span>أخرى (<span id="pieOther">10</span>%)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- جدول المعاملات -->
+    <div class="transactions-section">
+        <div class="section-header">
+            <div class="section-title">
+                <i class="fas fa-list-ul"></i>
+                <span>سجل المعاملات الضريبية</span>
+                <span class="tx-count-badge" id="txCount">142</span>
+            </div>
+            <div class="section-actions">
+                <button class="action-btn" onclick="toggleAllDetails()">
+                    <i class="fas fa-expand-alt"></i> عرض الكل
+                </button>
+                <button class="action-btn primary" onclick="exportReport('csv')">
+                    <i class="fas fa-file-export"></i> تصدير السجل
+                </button>
+            </div>
+        </div>
+        <div class="transactions-list" id="transactionsList">
+            <!-- سيتم الملء بواسطة JS -->
+        </div>
+    </div>
+
+    <!-- قسم التصدير -->
+    <div class="export-section">
+        <div class="export-title"><i class="fas fa-cloud-download-alt"></i> تصدير التقرير الضريبي الرسمي</div>
+        <div class="export-desc">احصل على نسخة معتمدة من تقاريرك الضريبية لتقديمها للجهات المختصة أو لحفظها في سجلاتك</div>
+        <div class="export-formats">
+            <button class="export-btn pdf" onclick="exportReport('pdf')">
+                <i class="fas fa-file-pdf"></i> PDF معتمد
+            </button>
+            <button class="export-btn excel" onclick="exportReport('excel')">                <i class="fas fa-file-excel"></i> Excel للتحليل
+            </button>
+            <button class="export-btn csv" onclick="exportReport('csv')">
+                <i class="fas fa-file-csv"></i> CSV للمحاسبة
+            </button>
+        </div>
+    </div>
+
+    <!-- الملاحظة القانونية -->
+    <div class="legal-notice">
+        <i class="fas fa-scale-balanced"></i>
+        <div>
+            <strong>إخلاء مسؤولية قانونية وضريبية:</strong>
+            <br>
+            الحسابات الضريبية المعروضة في هذه المنصة هي تقديرات تعتمد على البيانات المدخلة من قبلك ومن مصادر السوق العامة. 
+            قوانين الضرائب تختلف باختلاف الدولة والإقامة الضريبية وقد تخضع للتحديثات المستمرة. 
+            <strong>Nexora Invest</strong> لا تقدم استشارة ضريبية رسمية. يُنصح بشدة باستشارة مختص ضريبي معتمد في بلدك لضمان الالتزام الكامل قبل تقديم أي إقرارات رسمية.
+            البيانات标注 بـ "متوقع" هي مجرد تنبؤات ولا تعتبر التزاماً مالياً.
+        </div>
+    </div>
+
+    <!-- شاشة التحميل -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-box">
+            <div class="loading-spinner"></div>
+            <div class="loading-text" id="loadingText">جاري معالجة البيانات الضريبية...</div>
+            <div class="loading-sub" id="loadingSub">يرجى الانتظار، لا تغلق الصفحة</div>
+        </div>
+    </div>
+
+    <!-- التوست للإشعارات -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">تمت العملية بنجاح</span>
+    </div>
+
+    <script>
+        // ============================================
+        // === نظام الضرائب الاحترافي - Nexora Invest ===
+        // ============================================
+
+        // === قاعدة البيانات الضريبية (2024-2026) ===
+        const taxDatabase = {
+            '2024': {
+                summary: {
+                    totalGains: 28338.67, totalLosses: 3241.22, netGains: 25097.45,
+                    taxableAmount: 28338.67, taxDue: 4250.80, taxPaid: 3100.00, taxRemaining: 1150.80,
+                    totalTransactions: 142, taxableCount: 89, exemptCount: 53,
+                    distribution: { capital: 45, mining: 30, referral: 15, other: 10 },
+                    isProjected: false                },
+                transactions: [
+                    { id: 1, type: 'sell', coin: 'Bitcoin', symbol: 'BTC', date: '2024-03-15', amount: 0.5, price: 65000, buyPrice: 50000, gain: 7500, taxable: true, details: { platform: 'Binance', fee: 12.5, hash: '0xabc...123' } },
+                    { id: 2, type: 'income', coin: 'Mining Reward', symbol: 'ETH', date: '2024-03-10', amount: 2.5, price: 3400, gain: 8500, taxable: true, details: { platform: 'Nexora Cloud', fee: 0, hash: '0xdef...456' } },
+                    { id: 3, type: 'transfer', coin: 'USDT', symbol: 'USDT', date: '2024-03-08', amount: 5000, price: 1, gain: 0, taxable: false, details: { from: 'Wallet A', to: 'Wallet B', fee: 1.5 } },
+                    { id: 4, type: 'sell', coin: 'Ethereum', symbol: 'ETH', date: '2024-02-28', amount: 3, price: 3200, buyPrice: 2800, gain: 1200, taxable: true, details: { platform: 'Coinbase', fee: 8.4, hash: '0xghi...789' } },
+                    { id: 5, type: 'buy', coin: 'Solana', symbol: 'SOL', date: '2024-02-20', amount: 100, price: 145, gain: 0, taxable: false, details: { platform: 'Kraken', fee: 3.2, hash: '0xjkl...012' } },
+                    { id: 6, type: 'income', coin: 'Referral Bonus', symbol: 'USDC', date: '2024-02-15', amount: 250, price: 1, gain: 250, taxable: true, details: { source: 'إحالة مستخدم #4521', fee: 0 } },
+                    { id: 7, type: 'sell', coin: 'Cardano', symbol: 'ADA', date: '2024-02-10', amount: 5000, price: 0.48, buyPrice: 0.52, gain: -200, taxable: false, details: { platform: 'Binance', fee: 1.2, hash: '0xmno...345', note: 'خسارة رأس مال' } },
+                    { id: 8, type: 'income', coin: 'Staking Reward', symbol: 'DOT', date: '2024-01-30', amount: 45, price: 7.2, gain: 324, taxable: true, details: { platform: 'Nexora Staking', fee: 0, apr: '12%' } }
+                ]
+            },
+            '2025': {
+                summary: {
+                    totalGains: 45620.33, totalLosses: 2100.50, netGains: 43519.83,
+                    taxableAmount: 45620.33, taxDue: 6843.05, taxPaid: 4500.00, taxRemaining: 2343.05,
+                    totalTransactions: 218, taxableCount: 145, exemptCount: 73,
+                    distribution: { capital: 52, mining: 25, referral: 18, other: 5 },
+                    isProjected: false
+                },
+                transactions: [
+                    { id: 101, type: 'sell', coin: 'Bitcoin', symbol: 'BTC', date: '2025-06-20', amount: 1.2, price: 89000, buyPrice: 62000, gain: 32400, taxable: true, details: { platform: 'Binance', fee: 28.5, hash: '0x2025...btc1' } },
+                    { id: 102, type: 'income', coin: 'Cloud Mining', symbol: 'BTC', date: '2025-06-15', amount: 0.08, price: 88500, gain: 7080, taxable: true, details: { platform: 'Nexora Pro', fee: 0, hash: '0x2025...min1' } },
+                    { id: 103, type: 'sell', coin: 'Ethereum', symbol: 'ETH', date: '2025-05-30', amount: 8, price: 4200, buyPrice: 3100, gain: 8800, taxable: true, details: { platform: 'Coinbase', fee: 15.2, hash: '0x2025...eth1' } },
+                    { id: 104, type: 'transfer', coin: 'USDC', symbol: 'USDC', date: '2025-05-22', amount: 12000, price: 1, gain: 0, taxable: false, details: { from: 'Trading Wallet', to: 'Cold Storage', fee: 0.5 } },
+                    { id: 105, type: 'income', coin: 'VIP Bonus', symbol: 'NEX', date: '2025-05-10', amount: 500, price: 2.5, gain: 1250, taxable: true, details: { source: 'مكافأة المستوى الذهبي', fee: 0 } },
+                    { id: 106, type: 'buy', coin: 'Solana', symbol: 'SOL', date: '2025-04-18', amount: 250, price: 178, gain: 0, taxable: false, details: { platform: 'Kraken', fee: 5.8, hash: '0x2025...sol1' } },
+                    { id: 107, type: 'sell', coin: 'Polkadot', symbol: 'DOT', date: '2025-03-25', amount: 800, price: 9.5, buyPrice: 7.8, gain: 1360, taxable: true, details: { platform: 'Binance', fee: 3.2, hash: '0x2025...dot1' } },
+                    { id: 108, type: 'income', coin: 'Referral Tier-2', symbol: 'USDT', date: '2025-03-10', amount: 850, price: 1, gain: 850, taxable: true, details: { source: 'عمولة إحالة المستوى الثاني', fee: 0 } },
+                    { id: 109, type: 'sell', coin: 'Chainlink', symbol: 'LINK', date: '2025-02-14', amount: 120, price: 22.5, buyPrice: 18.2, gain: 516, taxable: true, details: { platform: 'KuCoin', fee: 1.8, hash: '0x2025...link1' } },
+                    { id: 110, type: 'income', coin: 'Staking APY', symbol: 'ADA', date: '2025-01-20', amount: 320, price: 0.58, gain: 185.6, taxable: true, details: { platform: 'Nexora Staking', fee: 0, apr: '14.5%' } }
+                ]
+            },
+            '2026': {
+                summary: {
+                    totalGains: 12450.00, totalLosses: 890.25, netGains: 11559.75,
+                    taxableAmount: 12450.00, taxDue: 1867.50, taxPaid: 0, taxRemaining: 1867.50,
+                    totalTransactions: 47, taxableCount: 31, exemptCount: 16,
+                    distribution: { capital: 38, mining: 35, referral: 20, other: 7 },
+                    isProjected: true
+                },
+                transactions: [
+                    { id: 201, type: 'income', coin: 'Projected Mining', symbol: 'BTC', date: '2026-12-31', amount: 0.05, price: 95000, gain: 4750, taxable: true, details: { platform: 'Nexora Forecast', fee: 0, note: 'توقعات' } },
+                    { id: 202, type: 'sell', coin: 'Ethereum', symbol: 'ETH', date: '2026-11-15', amount: 2, price: 4800, buyPrice: 4100, gain: 1400, taxable: true, details: { platform: 'Projected', fee: 4.2, note: 'توقعات' } },
+                    { id: 203, type: 'income', coin: 'VIP Rewards', symbol: 'NEX', date: '2026-10-01', amount: 300, price: 3.2, gain: 960, taxable: true, details: { source: 'مكافآت متوقعة', fee: 0, note: 'توقعات' } },
+                    { id: 204, type: 'transfer', coin: 'USDT', symbol: 'USDT', date: '2026-09-20', amount: 3000, price: 1, gain: 0, taxable: false, details: { from: 'Wallet A', to: 'Wallet B', fee: 1, note: 'توقعات' } },
+                    { id: 205, type: 'buy', coin: 'Solana', symbol: 'SOL', date: '2026-08-10', amount: 80, price: 195, gain: 0, taxable: false, details: { platform: 'Projected', fee: 2.5, note: 'توقعات' } },
+                    { id: 206, type: 'income', coin: 'Referral Bonus', symbol: 'USDC', date: '2026-07-05', amount: 420, price: 1, gain: 420, taxable: true, details: { source: 'إحالات متوقعة', fee: 0, note: 'توقعات' } },
+                    { id: 207, type: 'sell', coin: 'Cardano', symbol: 'ADA', date: '2026-06-18', amount: 2000, price: 0.65, buyPrice: 0.55, gain: 200, taxable: true, details: { platform: 'Projected', fee: 0.8, note: 'توقعات' } },
+                    { id: 208, type: 'income', coin: 'Staking Reward', symbol: 'DOT', date: '2026-05-01', amount: 65, price: 10.2, gain: 663, taxable: true, details: { platform: 'Nexora Staking', fee: 0, apr: '15%', note: 'توقعات' } }                ]
+            }
+        };
+
+        // === حالة التطبيق ===
+        let taxData = {
+            settings: { year: '2024', country: 'sa', taxRate: 0.15, currency: 'USD' },
+            currentData: null
+        };
+        
+        let currentFilter = 'all';
+        let expandedTx = null;
+
+        // === التهيئة ===
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTaxSettings();
+            loadYearData(taxData.settings.year);
+            initEventListeners();
+            console.log('🛡️ Nexora Tax System Pro v3.0 Initialized');
+        });
+
+        // === تحميل الإعدادات ===
+        function loadTaxSettings() {
+            const saved = localStorage.getItem('nexora_tax_settings_pro');
+            if (saved) {
+                const settings = JSON.parse(saved);
+                taxData.settings = { ...taxData.settings, ...settings };
+                document.getElementById('yearFilter').value = settings.year || '2024';
+                document.getElementById('countryFilter').value = settings.country || 'sa';
+            }
+            updateTaxRateByCountry();
+        }
+
+        // === تحديث نسبة الضريبة ===
+        function updateTaxRateByCountry() {
+            const rates = { sa: 0.15, ae: 0, eg: 0.225, us: 0.20, uk: 0.20 };
+            const rateDisplay = { sa: '15%', ae: '0%', eg: '22.5%', us: '20%', uk: '20%' };
+            const country = taxData.settings.country;
+            
+            taxData.settings.taxRate = rates[country] || 0.15;
+            document.getElementById('rateSub').textContent = `نسبة ${rateDisplay[country] || '15%'}`;
+        }
+
+        // === تحميل بيانات السنة ===
+        function loadYearData(year) {
+            const data = taxDatabase[year];
+            if (!data) return;
+            
+            taxData.currentData = JSON.parse(JSON.stringify(data));
+            taxData.settings.year = year;            
+            const yearText = { 
+                '2024': 'خلال 2024', 
+                '2025': 'خلال 2025', 
+                '2026': '🔮 توقعات 2026' 
+            };
+            const yearSub = document.getElementById('yearSub');
+            yearSub.textContent = yearText[year] || `خلال ${year}`;
+            
+            if (data.summary.isProjected) {
+                yearSub.innerHTML = '<i class="fas fa-eye"></i> توقعات 2026';
+                yearSub.style.color = 'var(--warning)';
+                document.querySelector('.tax-header').style.background = 'linear-gradient(135deg, #FFA000 0%, #FF6F00 100%)';
+            } else {
+                yearSub.style.color = 'var(--text-sec)';
+                document.querySelector('.tax-header').style.background = 'var(--header-grad)';
+            }
+            
+            renderSummary();
+            renderProgress();
+            renderPieChart(data.summary.distribution);
+            renderTransactions(currentFilter);
+        }
+
+        // === عرض الملخص ===
+        function renderSummary() {
+            if (!taxData.currentData) return;
+            const s = taxData.currentData.summary;
+            const fmt = n => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            
+            animateValue("totalGains", s.netGains, fmt);
+            animateValue("taxDue", s.taxDue, fmt);
+            animateValue("taxPaid", s.taxPaid, fmt);
+            animateValue("taxRemaining", s.taxRemaining, fmt);
+            
+            document.getElementById('totalTransactions').textContent = s.totalTransactions;
+            document.getElementById('taxableCount').textContent = s.taxableCount;
+            document.getElementById('exemptCount').textContent = s.exemptCount;
+        }
+
+        // === تأثير الأرقام ===
+        function animateValue(id, value, formatter) {
+            const obj = document.getElementById(id);
+            const start = 0;
+            const end = value;
+            const duration = 1000;
+            let startTimestamp = null;
+            
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const currentVal = progress * end;
+                obj.innerHTML = formatter(currentVal);
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // === عرض التقدم ===
+        function renderProgress() {
+            if (!taxData.currentData) return;
+            const s = taxData.currentData.summary;
+            const percent = s.taxDue > 0 ? Math.min(100, Math.round((s.taxPaid / s.taxDue) * 100)) : 0;
+            
+            setTimeout(() => {
+                document.getElementById('progressFill').style.width = percent + '%';
+                document.getElementById('progressPercent').textContent = percent + '%';
+            }, 100);
+        }
+
+        // === الرسم الدائري ===
+        function renderPieChart(dist) {
+            if (!dist) return;
+            
+            document.getElementById('pieCapital').textContent = dist.capital;
+            document.getElementById('pieMining').textContent = dist.mining;
+            document.getElementById('pieReferral').textContent = dist.referral;
+            document.getElementById('pieOther').textContent = dist.other;
+            
+            const chart = document.getElementById('pieChart');
+            const c1 = dist.capital;
+            const c2 = c1 + dist.mining;
+            const c3 = c2 + dist.referral;
+            
+            chart.style.background = `conic-gradient(
+                var(--success) 0% ${c1}%,
+                var(--warning) ${c1}% ${c2}%,
+                var(--danger) ${c2}% ${c3}%,
+                var(--info) ${c3}% 100%
+            )`;
+        }
+
+        // === عرض المعاملات ===
+        function renderTransactions(filter = 'all') {
+            if (!taxData.currentData) return;
+            
+            const container = document.getElementById('transactionsList');
+            let filtered = [...taxData.currentData.transactions];
+            
+            if (filter !== 'all') filtered = filtered.filter(tx => tx.type === filter);            
+            document.getElementById('txCount').textContent = filtered.length;
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="padding:50px 20px;text-align:center;color:var(--text-sec)">
+                        <i class="fas fa-inbox" style="font-size:48px;margin-bottom:15px;opacity:0.4"></i>
+                        <p>لا توجد معاملات تطابق الفلتر المحدد</p>
+                        <button class="filter-btn secondary" style="margin:15px auto" onclick="filterByType('all', document.querySelector('[data-filter=\"all\"]'))">عرض الكل</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filtered.map(tx => createTransactionHTML(tx)).join('');
+        }
+
+        // === HTML المعاملة ===
+        function createTransactionHTML(tx) {
+            const fmt = n => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2 });
+            const date = new Date(tx.date);
+            const dateFmt = date.toLocaleDateString('ar-SA', { year: 'numeric', month: 'short', day: 'numeric' });
+            
+            const icons = { buy: 'fa-arrow-down', sell: 'fa-arrow-up', income: 'fa-gift', transfer: 'fa-exchange-alt' };
+            const labels = { buy: 'شراء', sell: 'بيع', income: 'دخل', transfer: 'تحويل' };
+            
+            let badgeClass = tx.taxable ? 'tax-badge-taxable' : 'tax-badge-exempt';
+            let badgeText = tx.taxable ? 'خاضع للضريبة' : 'معفى';
+            if (tx.details?.note === 'توقعات') {
+                badgeClass = 'tax-badge-projected';
+                badgeText = '🔮 متوقع';
+            }
+            
+            const gainDisplay = tx.gain > 0 
+                ? `<span style="color:var(--success)">+${fmt(tx.gain)}</span>`
+                : tx.gain < 0 
+                    ? `<span style="color:var(--danger)">${fmt(tx.gain)}</span>`
+                    : '<span style="color:var(--text-sec)">-</span>';
+            
+            const isExpanded = expandedTx === tx.id ? 'expanded' : '';
+            
+            return `
+                <div class="transaction-item ${isExpanded}" data-id="${tx.id}" onclick="toggleTransaction(${tx.id})">
+                    <div class="tx-main">
+                        <div class="tx-icon ${tx.type}"><i class="fas ${icons[tx.type]}"></i></div>
+                        <div class="tx-info">
+                            <h4>${labels[tx.type]} ${tx.coin}</h4>
+                            <p>${tx.amount.toLocaleString('en-US')} ${tx.symbol} @ ${fmt(tx.price)}</p>
+                            <span class="tx-date"><i class="far fa-clock"></i> ${dateFmt}</span>
+                            <span class="tx-tax-badge ${badgeClass}">${badgeText}</span>                        </div>
+                    </div>
+                    <div class="tx-amount">
+                        <span class="tx-amount-value">${gainDisplay}</span>
+                        <span class="tx-amount-sub">${tx.taxable ? 'ضريبة: ' + fmt(tx.gain * taxData.settings.taxRate) : 'لا ضريبة'}</span>
+                    </div>
+                    
+                    <div class="tx-details">
+                        <div class="tx-detail-row"><span class="tx-detail-label">النوع</span><span class="tx-detail-value">${labels[tx.type]}</span></div>
+                        <div class="tx-detail-row"><span class="tx-detail-label">المنصة</span><span class="tx-detail-value">${tx.details?.platform || 'Nexora'}</span></div>
+                        <div class="tx-detail-row"><span class="tx-detail-label">الرسوم</span><span class="tx-detail-value">${fmt(tx.details?.fee || 0)}</span></div>
+                        ${tx.details?.hash ? `<div class="tx-detail-row"><span class="tx-detail-label">Hash</span><span class="tx-detail-value" style="font-size:10px">${tx.details.hash}</span></div>` : ''}
+                        ${tx.details?.source ? `<div class="tx-detail-row"><span class="tx-detail-label">المصدر</span><span class="tx-detail-value">${tx.details.source}</span></div>` : ''}
+                        ${tx.details?.apr ? `<div class="tx-detail-row"><span class="tx-detail-label">العائد السنوي</span><span class="tx-detail-value">${tx.details.apr}</span></div>` : ''}
+                        ${tx.type === 'sell' && tx.buyPrice ? `
+                            <div class="tx-detail-row" style="grid-column:1/-1;border-top:1px dashed var(--border);padding-top:10px;margin-top:5px">
+                                <span class="tx-detail-label">تحليل الربح</span>
+                                <div style="display:flex;gap:15px;margin-top:5px">
+                                    <span style="color:var(--text-sec)">شراء: ${fmt(tx.buyPrice)}</span>
+                                    <span style="color:var(--text-sec)">بيع: ${fmt(tx.price)}</span>
+                                    <span style="color:${tx.gain>=0?'var(--success)':'var(--danger)'};font-weight:900">صافي: ${fmt(tx.gain)}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                        ${tx.details?.note === 'توقعات' ? `
+                            <div class="tx-detail-row" style="grid-column:1/-1;background:rgba(255,160,0,0.1);padding:10px;border-radius:8px;color:var(--warning);font-size:11px;font-weight:700;text-align:center">
+                                <i class="fas fa-exclamation-triangle"></i> هذه البيانات تقديرية للمستقبل ولا تعتبر التزاماً مالياً
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // === التفاعل ===
+        function toggleTransaction(id) {
+            expandedTx = expandedTx === id ? null : id;
+            renderTransactions(currentFilter);
+        }
+
+        function toggleAllDetails() {
+            expandedTx = expandedTx ? null : -1;
+            renderTransactions(currentFilter);
+        }
+
+        function applyFilters() {
+            showLoading('جاري تحديث البيانات الضريبية...', 'يرجى الانتظار');
+            
+            const newYear = document.getElementById('yearFilter').value;
+            const newCountry = document.getElementById('countryFilter').value;            
+            taxData.settings.year = newYear;
+            taxData.settings.country = newCountry;
+            updateTaxRateByCountry();
+            
+            localStorage.setItem('nexora_tax_settings_pro', JSON.stringify(taxData.settings));
+            
+            setTimeout(() => {
+                loadYearData(newYear);
+                recalculateTax();
+                hideLoading();
+                showToast(`✅ تم تحميل بيانات سنة ${newYear} بنجاح`);
+            }, 800);
+        }
+
+        function filterByType(type, el) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            renderTransactions(type);
+        }
+
+        function recalculateTax() {
+            if (!taxData.currentData) return;
+            const rate = taxData.settings.taxRate;
+            let taxableTotal = 0;
+            
+            taxData.currentData.transactions.forEach(tx => {
+                if (tx.taxable && tx.gain > 0) taxableTotal += tx.gain;
+            });
+            
+            taxData.currentData.summary.taxDue = taxableTotal * rate;
+            taxData.currentData.summary.taxRemaining = Math.max(0, taxData.currentData.summary.taxDue - taxData.currentData.summary.taxPaid);
+            
+            renderSummary();
+            renderProgress();
+        }
+
+        // === التصدير ===
+        function exportReport(format) {
+            const year = taxData.settings.year;
+            showLoading(`جاري تحضير تقرير ${format.toUpperCase()}`, `سنة ${year} - يرجى الانتظار...`);
+            
+            setTimeout(() => {
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 10;
+                    document.getElementById('loadingSub').textContent = `جاري المعالجة... ${progress}%`;
+                    if (progress >= 100) {
+                        clearInterval(interval);                        hideLoading();
+                        showToast(`📄 تم تحميل تقرير ${year}.${format}`, 'success', 4000);
+                    }
+                }, 150);
+            }, 1000);
+        }
+
+        // === أدوات UI ===
+        function showLoading(text, sub) {
+            document.getElementById('loadingText').textContent = text;
+            document.getElementById('loadingSub').textContent = sub || '';
+            document.getElementById('loadingOverlay').classList.add('active');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.remove('active');
+        }
+
+        function showToast(message, type = 'success', duration = 3000) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toastMessage');
+            
+            msgEl.innerHTML = message.replace(/\n/g, '<br>');
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+            
+            setTimeout(() => toast.classList.remove('show'), duration);
+        }
+
+        function initEventListeners() {
+            document.getElementById('countryFilter').addEventListener('change', () => {
+                updateTaxRateByCountry();
+                recalculateTax();
+                renderTransactions(currentFilter);
+            });
+        }
+    </script>
+</body>
+</html>
